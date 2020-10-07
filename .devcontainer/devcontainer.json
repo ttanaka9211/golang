@@ -1,45 +1,28 @@
-// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
-// https://github.com/microsoft/vscode-dev-containers/tree/v0.137.0/containers/go
 {
-	"name": "Go",
-	"build": {
-		"docker-Compose.yml": [
-            "docker-compose.yml",
-        ],
-        "service":"app",
-        "workspaceFolder":"/app",
-		"args": {
-			// Update the VARIANT arg to pick a version of Go: 1, 1.15, 1.14
-			"VARIANT": "1",
-			// Options
-			"INSTALL_NODE": "false",
-			"NODE_VERSION": "lts/*"
-		}
-	},
-	"runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
-
-	// Set *default* container specific settings.json values on container create.
-	"settings": {
-		"terminal.integrated.shell.linux": "/bin/bash",
-		"go.useGoProxyToCheckForToolUpdates": false,
-		"go.gopath": "/go",
-		"go.useLanguageServer": true,
-        "go.toolsEnvVars": {
-            "GO111MODULE": "on",
-        },
-	},
-
-	// Add the IDs of extensions you want installed when the container is created.
-	"extensions": [
-		"golang.Go"
-	],
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	//"forwardPorts": [9000],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "go version",
-
-	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
-	"remoteUser": "vscode"
+    "name": "Go Sample",
+    // dockerFile -> dockerComposeFile
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    // docker-compose.servicesのどのコンテナで作業するのかを設定する
+    "service": "app",
+    // workspaceを設定する
+    "workspaceFolder": "/app",
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    // docker-compose.yml内で設定できるので不要
+    //"appPort": [9000],
+    "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "go.gopath": "/go",
+        "go.inferGopath": true,
+        "go.useLanguageServer": true
+    },
+    "remoteUser": "vscode",
+    "extensions": [
+        "ms-vscode.go"
+    ]
 }
