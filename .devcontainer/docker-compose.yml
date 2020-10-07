@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - '33306:3306'
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sample
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ../db/conf:/etc/mysql/conf.d
+      - ../db/init:/docker-entrypoint-initdb.d
+
+  app:
+    build: ./
+    working_dir: /app
+    ports:
+      - '11323:1323'
+    volumes:
+      - ../:/app
+    expose:
+      - '1323'
+    command: sleep infinity
